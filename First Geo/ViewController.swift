@@ -7,9 +7,24 @@
 //
 
 import UIKit
+import CoreLocation
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, CLLocationManagerDelegate {
 
+    let locationManager = CLLocationManager()
+    let formatter : NSNumberFormatter =  {
+        var formatter = NSNumberFormatter()
+        formatter.numberStyle = .DecimalStyle
+        formatter.maximumFractionDigits = 5
+        return formatter
+    }()
+
+    @IBOutlet weak var label: UILabel!
+    
+    override func viewWillAppear(animated: Bool) {
+        label.text = "Waiting for location..."
+        startLocating()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -19,7 +34,29 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    func startLocating() {
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
+    
+        
+    }
 
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [AnyObject]!) {
+        println("Got new location data")
+        var locationArray = locations! as NSArray
+        var locationObj = locationArray.lastObject as! CLLocation
+        var lat = locationObj.coordinate.latitude
+        var lon = locationObj.coordinate.longitude
+        var locationString = "\(lat), \(lon)"
+        label.text = locationString
+        
+    }
+    func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
+        println("Location manager reported failure")
+    }
 
 }
 
