@@ -8,10 +8,13 @@
 
 import UIKit
 import CoreLocation
+import CoreMotion
 
 class ViewController: UIViewController, CLLocationManagerDelegate {
 
     let locationManager = CLLocationManager()
+    let motionManager = CMMotionActivityManager()
+    
     let formatter : NSNumberFormatter =  {
         var formatter = NSNumberFormatter()
         formatter.numberStyle = .DecimalStyle
@@ -20,6 +23,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }()
 
     @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var motionLabel: UILabel!
     
     override func viewWillAppear(animated: Bool) {
         label.text = "Waiting for location..."
@@ -35,14 +39,40 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         // Dispose of any resources that can be recreated.
     }
     
+    
+    let motionHandler : CMMotionActivityHandler = { (data) in
+        dispatch_async(dispatch_get_main_queue()) {
+        }
+    }
+    
     func startLocating() {
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
-    
-        
+        motionManager.startActivityUpdatesToQueue(NSOperationQueue.mainQueue(), withHandler: {(data : CMMotionActivity!) -> Void in
+            var indicatorText = ":"
+            if(data.stationary) {
+                indicatorText += "S"
+            }
+            if(data.walking) {
+                indicatorText += "W"
+            }
+            if(data.running) {
+                indicatorText += "R"
+            }
+            if(data.cycling) {
+                indicatorText += "B"
+            }
+            if(data.automotive) {
+                indicatorText += "C"
+            }
+            
+            self.motionLabel.text = indicatorText + ":"
+        })
     }
+    
+
 
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [AnyObject]!) {
         println("Got new location data")
@@ -50,7 +80,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         var locationObj = locationArray.lastObject as! CLLocation
         var lat = locationObj.coordinate.latitude
         var lon = locationObj.coordinate.longitude
-        var locationString = "\(lat), \(lon)"
+        var speed = locationObj.speed
+        var locationString = "\(lat),\(lon)"
         label.text = locationString
         
     }

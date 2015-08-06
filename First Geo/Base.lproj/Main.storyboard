@@ -21,40 +21,52 @@
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hr7-xz-JkA">
                                 <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
-                                <fontDescription key="fontDescription" name="BodoniSvtyTwoITCTT-Book" family="Bodoni 72" pointSize="25"/>
+                                <fontDescription key="fontDescription" name="BodoniSvtyTwoITCTT-Book" family="Bodoni 72" pointSize="12"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
-                                <variation key="heightClass=regular" misplaced="YES">
-                                    <rect key="frame" x="279" y="375" width="99" height="50"/>
-                                </variation>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DsD-zc-aIX">
+                                <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="DsD-zc-aIX" firstAttribute="top" secondItem="Hr7-xz-JkA" secondAttribute="bottom" constant="127" id="0Ui-IA-f2M"/>
+                            <constraint firstAttribute="centerX" secondItem="DsD-zc-aIX" secondAttribute="centerX" id="Pxc-9s-SoA"/>
                             <constraint firstAttribute="centerY" secondItem="Hr7-xz-JkA" secondAttribute="centerY" id="l3T-Yj-h8a"/>
                             <constraint firstAttribute="centerX" secondItem="Hr7-xz-JkA" secondAttribute="centerX" id="v8G-xH-bzN"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="Hr7-xz-JkA"/>
+                                <exclude reference="DsD-zc-aIX"/>
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="l3T-Yj-h8a"/>
                                 <exclude reference="v8G-xH-bzN"/>
+                                <exclude reference="0Ui-IA-f2M"/>
+                                <exclude reference="Pxc-9s-SoA"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular">
                             <mask key="subviews">
                                 <include reference="Hr7-xz-JkA"/>
+                                <include reference="DsD-zc-aIX"/>
                             </mask>
                             <mask key="constraints">
                                 <include reference="l3T-Yj-h8a"/>
                                 <include reference="v8G-xH-bzN"/>
+                                <include reference="0Ui-IA-f2M"/>
+                                <include reference="Pxc-9s-SoA"/>
                             </mask>
                         </variation>
                     </view>
                     <connections>
                         <outlet property="label" destination="Hr7-xz-JkA" id="g4J-Nm-yU2"/>
+                        <outlet property="motionLabel" destination="DsD-zc-aIX" id="JTK-hE-bAd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
